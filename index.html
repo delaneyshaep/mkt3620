@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Delaney</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=Work+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --pine: #16261D;
+    --pine-deep: #0E1B14;
+    --paper: #EFE8D8;
+    --paper-dim: #E2D9C4;
+    --brass: #C1873C;
+    --ink: #1C1A15;
+  }
+
+  *{ box-sizing: border-box; }
+
+  html{ scroll-behavior: smooth; }
+
+  body{
+    margin:0;
+    background: var(--paper);
+    color: var(--ink);
+    font-family: 'Work Sans', sans-serif;
+    font-weight: 400;
+    line-height: 1.6;
+  }
+
+  h1, h2, .display{
+    font-family: 'Fraunces', serif;
+    font-weight: 500;
+    letter-spacing: -0.01em;
+  }
+
+  a{ color: inherit; }
+
+  /* --- Nav --- */
+  header{
+    display:flex;
+    justify-content: space-between;
+    align-items:center;
+    padding: 1.6rem 6vw;
+  }
+
+  .wordmark{
+    font-family:'Fraunces', serif;
+    font-size: 1.15rem;
+    font-weight:600;
+    letter-spacing: 0.01em;
+  }
+
+  nav{ display:flex; gap: 2rem; }
+
+  nav a{
+    text-decoration:none;
+    font-size: 0.95rem;
+    color: var(--ink);
+    position: relative;
+    padding-bottom: 2px;
+  }
+
+  nav a::after{
+    content:'';
+    position:absolute;
+    left:0; right:0; bottom:-2px;
+    height:1px;
+    background: var(--brass);
+    transform: scaleX(0);
+    transform-origin: right;
+    transition: transform 0.3s ease;
+  }
+
+  nav a:hover::after{ transform: scaleX(1); transform-origin: left; }
+
+  /* --- Hero --- */
+  .hero{
+    background: var(--pine);
+    color: var(--paper);
+    padding: 9vh 6vw 11vh;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .hero-inner{
+    max-width: 720px;
+  }
+
+  .hero .eyebrow{
+    color: var(--brass);
+    font-size: 0.95rem;
+    margin-bottom: 1.1rem;
+  }
+
+  .hero h1{
+    font-size: clamp(2.6rem, 6vw, 4.6rem);
+    line-height: 1.04;
+    margin: 0 0 1.4rem;
+  }
+
+  .hero h1 em{
+    font-style: italic;
+    color: var(--brass);
+  }
+
+  .hero p.role{
+    font-size: 1.15rem;
+    max-width: 46ch;
+    color: var(--paper-dim);
+    margin: 0;
+  }
+
+  .ledger-mark{
+    position:absolute;
+    right: 5vw;
+    bottom: -6vh;
+    font-family:'Fraunces', serif;
+    font-size: 22vw;
+    font-weight: 500;
+    color: rgba(239,232,216,0.045);
+    line-height: 1;
+    pointer-events:none;
+    user-select:none;
+  }
+
+  /* --- About --- */
+  .about{
+    padding: 11vh 6vw;
+    display:grid;
+    grid-template-columns: 1fr 1.5fr;
+    gap: 4rem;
+    max-width: 1180px;
+    margin: 0 auto;
+  }
+
+  .about .label{
+    font-size: 0.95rem;
+    color: #6B6353;
+    padding-top: 0.3rem;
+  }
+
+  .about-text{
+    max-width: 62ch;
+  }
+
+  .about-text p{
+    font-size: 1.15rem;
+    margin: 0 0 1.4rem;
+  }
+
+  .details{
+    margin-top: 2.2rem;
+    border-top: 1px solid #C9BFA6;
+    padding-top: 1.4rem;
+    display:flex;
+    flex-wrap: wrap;
+    gap: 2.5rem 3rem;
+  }
+
+  .details div{ min-width: 160px; }
+
+  .details h3{
+    font-family:'Fraunces', serif;
+    font-weight: 500;
+    font-size: 1rem;
+    margin: 0 0 0.35rem;
+  }
+
+  .details p{
+    margin:0;
+    font-size: 0.95rem;
+    color: #4E4A3D;
+  }
+
+  /* --- Footer --- */
+  footer{
+    background: var(--pine-deep);
+    color: var(--paper-dim);
+    padding: 4rem 6vw;
+    display:flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    flex-wrap: wrap;
+    gap: 2rem;
+  }
+
+  footer .line1{
+    font-family:'Fraunces', serif;
+    font-size: 1.5rem;
+    color: var(--paper);
+    margin: 0 0 0.5rem;
+  }
+
+  footer a.contact-link{
+    text-decoration:none;
+    border-bottom: 1px solid var(--brass);
+    color: var(--paper);
+  }
+
+  footer small{
+    color: #8A8570;
+  }
+
+  @media (max-width: 760px){
+    .about{ grid-template-columns: 1fr; gap: 1.2rem; }
+    header{ flex-direction: column; gap: 1rem; align-items: flex-start; }
+    nav{ gap: 1.2rem; }
+  }
+
+  @media (prefers-reduced-motion: reduce){
+    nav a::after{ transition: none; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wordmark">Delaney</div>
+  <nav>
+    <a href="#about">About</a>
+    <a href="#contact">Contact</a>
+  </nav>
+</header>
+
+<section class="hero">
+  <div class="hero-inner">
+    <div class="eyebrow">Ames, Iowa</div>
+    <h1>Sales is a craft.<br>I've spent years <em>practicing it.</em></h1>
+    <p class="role">Business student, retail sales professional, and builder — currently studying at Iowa State University's Ivy College of Business.</p>
+  </div>
+  <div class="ledger-mark">D.</div>
+</section>
+
+<section class="about" id="about">
+  <div class="label">About</div>
+  <div class="about-text">
+    <p>I'm Delaney, a senior at Iowa State University's Ivy College of Business, double majoring in Marketing and Entrepreneurship with a Professional Sales certificate. I work as a salesperson at Brown's Shoe Fit Co. and have spent over four years at HyVee, giving me a strong foundation in both direct sales and customer service. I'm drawn to ownership over employment, and I love figuring out how to build things from the ground up. I'm graduating in May 2027 and looking ahead to what's next.</p>
+
+    <div class="details">
+      <div>
+        <h3>Education</h3>
+        <p>Ivy College of Business, Iowa State<br>Marketing &amp; Entrepreneurship, May 2027</p>
+      </div>
+      <div>
+        <h3>Currently</h3>
+        <p>Sales, Brown's Shoe Fit Co.<br>HyVee, 4+ years</p>
+      </div>
+      <div>
+        <h3>Focus</h3>
+        <p>Direct sales, customer experience,<br>independent business building</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer id="contact">
+  <div>
+    <p class="line1">Let's talk.</p>
+    <a class="contact-link" href="mailto:you@example.com">you@example.com</a>
+  </div>
+  <small>&copy; 2026 Delaney</small>
+</footer>
+
+</body>
+</html>
