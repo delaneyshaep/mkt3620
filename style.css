@@ -1,0 +1,393 @@
+/* =========================================================
+   style.css — shared stylesheet for all pages
+   Pages are told apart with the body[data-page="..."]
+   attribute (already set on each page, e.g. <body data-page="about">),
+   which is also what nav.js uses to highlight the active nav link.
+   ========================================================= */
+
+/* ---------- Shared design tokens ---------- */
+:root{
+  --pine: #16261D;
+  --pine-deep: #0E1B14;
+  --paper: #EFE8D8;
+  --paper-dim: #E2D9C4;
+  --brass: #C1873C;
+  --ink: #1C1A15;
+  --line: #C9BFA6;
+}
+
+*{ box-sizing: border-box; }
+
+html{ overflow-x: hidden; }
+
+body{
+  margin: 0;
+  background: var(--paper);
+  color: var(--ink);
+  font-family: 'Work Sans', sans-serif;
+  line-height: 1.6;
+}
+
+h1, h2, h3{
+  font-family: 'Fraunces', serif;
+  font-weight: 500;
+  letter-spacing: -0.01em;
+  margin: 0;
+}
+
+a{ color: inherit; }
+
+/* Small label used above headings — shared across about/resume/contact */
+.eyebrow{
+  color: #6B6353;
+  font-size: 0.95rem;
+  margin-bottom: 1rem;
+}
+
+/* Shared footer base — per-page rules below fill in the differences */
+footer{
+  background: var(--pine-deep);
+  color: var(--paper-dim);
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+footer small{ color: #8A8570; }
+
+
+/* =========================================================
+   HOME (index.html)
+   ========================================================= */
+body[data-page="home"]{
+  background: #FBF8F1; /* outer "body or background area" from the wireframe */
+}
+
+/* Content region: 10% background margin on each side, on any screen */
+.page{
+  width: 80%;
+  margin: 4vh auto;
+  background: var(--paper);
+  border: 1px solid var(--line);
+}
+
+/* --- Header --- */
+.site-header{
+  display: grid;
+  grid-template-columns: 220px 1fr;
+}
+
+.logo-cell{
+  display:flex;
+  align-items:center;
+  padding: 1.6rem 1.8rem;
+  border-right: 1px solid var(--line);
+  border-bottom: 1px solid var(--line);
+}
+
+.logo-cell .wordmark{
+  font-size: 1.6rem;
+  font-weight: 600;
+}
+
+.info-graphic{
+  display:flex;
+  align-items:center;
+  justify-content: space-around;
+  gap: 1rem;
+  padding: 1.2rem 1.8rem;
+  border-bottom: 1px solid var(--line);
+}
+
+.info-graphic .item{
+  display:flex;
+  flex-direction: column;
+  align-items:center;
+  gap: 0.5rem;
+  text-align:center;
+  font-size: 0.85rem;
+  color: #4E4A3D;
+}
+
+.info-graphic svg{ width: 28px; height: 28px; }
+
+#site-nav{ grid-column: 1 / -1; }
+
+.utility-bar{
+  grid-column: 1 / -1;
+  display:flex;
+  justify-content:center;
+  gap: 0.5rem;
+  padding: 0.55rem 1.8rem;
+  font-size: 0.85rem;
+  color: #6B6353;
+  border-bottom: 1px solid var(--line);
+}
+
+/* --- Body: main content + sticky sidebar --- */
+.site-body{
+  display:grid;
+  grid-template-columns: 1fr 260px;
+}
+
+body[data-page="home"] main{
+  padding: 1.8rem;
+  border-right: 1px solid var(--line);
+}
+
+.hero-image{
+  height: 260px;
+  border: 1px solid var(--line);
+  border-radius: 4px;
+  background: linear-gradient(135deg, var(--pine) 0%, var(--pine-deep) 100%);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  color: var(--paper-dim);
+  font-family: 'Fraunces', serif;
+  font-size: 1.1rem;
+  text-align:center;
+  padding: 1rem;
+  margin-bottom: 2rem;
+}
+
+body[data-page="home"] main h1{
+  font-size: clamp(1.7rem, 3.5vw, 2.2rem);
+  margin-bottom: 1.2rem;
+}
+
+body[data-page="home"] main p{
+  font-size: 1.08rem;
+  margin: 0 0 1.3rem;
+}
+
+.quick-facts{
+  margin-top: 2.2rem;
+  border-top: 1px solid var(--line);
+  padding-top: 1.4rem;
+  display:flex;
+  flex-wrap: wrap;
+  gap: 1.8rem 2.4rem;
+}
+
+.quick-facts div{ min-width: 150px; }
+.quick-facts h3{ font-size: 0.95rem; margin-bottom: 0.3rem; }
+.quick-facts p{ margin:0; font-size: 0.92rem; color: #4E4A3D; }
+
+.sticky-sidebar{ padding: 1.8rem; }
+.sticky-sidebar section{ margin-bottom: 2.2rem; }
+
+.sticky-sidebar h3{
+  font-size: 0.85rem;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: #6B6353;
+  margin-bottom: 0.9rem;
+}
+
+.sticky-sidebar ul{ list-style:none; margin:0; padding:0; font-size: 0.95rem; }
+
+.sticky-sidebar li{
+  margin-bottom: 0.6rem;
+  padding-bottom: 0.6rem;
+  border-bottom: 1px solid var(--line);
+}
+
+.sticky-sidebar li:last-child{ border-bottom: none; }
+
+.social-icons{ display:flex; gap: 0.8rem; }
+
+.social-icons a{
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  border: 1px solid var(--line);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  text-decoration:none;
+  font-size: 0.8rem;
+  color: var(--ink);
+}
+
+.social-icons a:hover{
+  background: var(--brass);
+  color: var(--paper);
+  border-color: var(--brass);
+}
+
+/* --- Footer (home) --- */
+body[data-page="home"] footer{
+  padding: 1.6rem 1.8rem;
+  justify-content: space-between;
+  align-items:center;
+  font-size: 0.85rem;
+}
+
+body[data-page="home"] footer .footer-links{ display:flex; gap: 1.4rem; }
+body[data-page="home"] footer a{ text-decoration:none; color: var(--paper-dim); }
+body[data-page="home"] footer a:hover{ color: var(--brass); }
+
+/* --- Home responsive --- */
+@media (max-width: 900px){
+  .site-header{ grid-template-columns: 1fr; }
+  .logo-cell{ border-right:none; }
+  .info-graphic{ justify-content: flex-start; flex-wrap: wrap; }
+
+  .site-body{ grid-template-columns: 1fr; }
+  body[data-page="home"] main{ border-right: none; border-bottom: 1px solid var(--line); }
+
+  body[data-page="home"] footer{ flex-direction: column; align-items: flex-start; }
+}
+
+@media (max-width: 480px){
+  .page{ width: 92%; }
+  .hero-image{ height: 180px; font-size: 1rem; }
+  .info-graphic{ gap: 1.4rem; }
+  .quick-facts{ gap: 1.2rem 1.6rem; }
+}
+
+
+/* =========================================================
+   ABOUT + RESUME (shared main/footer layout)
+   ========================================================= */
+body[data-page="about"] main,
+body[data-page="resume"] main{
+  margin: 0 auto;
+  padding: 9vh 6vw 12vh;
+}
+
+body[data-page="about"] main{ max-width: 760px; }
+body[data-page="resume"] main{ max-width: 780px; }
+
+body[data-page="about"] main h1,
+body[data-page="resume"] main h1{
+  font-size: clamp(2.2rem, 5vw, 3.2rem);
+}
+
+body[data-page="about"] main h1{ margin: 0 0 2rem; }
+body[data-page="resume"] main h1{ margin: 0 0 3rem; }
+
+body[data-page="about"] main p{
+  font-size: 1.15rem;
+  margin: 0 0 1.4rem;
+}
+
+body[data-page="about"] footer,
+body[data-page="resume"] footer{
+  padding: 4rem 6vw;
+  justify-content: space-between;
+  align-items: flex-end;
+}
+
+footer .line1{
+  font-family: 'Fraunces', serif;
+  font-size: 1.5rem;
+  color: var(--paper);
+  margin: 0 0 0.5rem;
+}
+
+footer a.contact-link{
+  text-decoration:none;
+  border-bottom: 1px solid var(--brass);
+  color: var(--paper);
+}
+
+/* --- About: quick-facts style list --- */
+.details{
+  margin-top: 2.5rem;
+  border-top: 1px solid var(--line);
+  padding-top: 1.6rem;
+  display:flex;
+  flex-wrap: wrap;
+  gap: 2.5rem 3rem;
+}
+
+.details div{ min-width: 160px; }
+.details h3{ font-family:'Fraunces', serif; font-weight: 500; font-size: 1rem; margin: 0 0 0.35rem; }
+.details p{ margin:0; font-size: 0.95rem; color: #4E4A3D; }
+
+
+/* =========================================================
+   RESUME
+   ========================================================= */
+.entry{
+  border-top: 1px solid var(--line);
+  padding: 2rem 0;
+  display:grid;
+  grid-template-columns: 1fr 2.4fr;
+  gap: 2rem;
+}
+
+.entry:last-child{ border-bottom: 1px solid var(--line); }
+.entry .when{ font-size: 0.95rem; color: #6B6353; }
+.entry h2{ font-size: 1.3rem; margin: 0 0 0.4rem; }
+.entry .org{ font-size: 1rem; color: #4E4A3D; margin: 0 0 0.8rem; }
+.entry p{ margin: 0; font-size: 1.02rem; }
+
+section.block{ margin-top: 4rem; }
+section.block h2{ font-size: 1.5rem; margin: 0 0 1.5rem; }
+
+@media (max-width: 640px){
+  .entry{ grid-template-columns: 1fr; gap: 0.5rem; }
+}
+
+
+/* =========================================================
+   CONTACT
+   ========================================================= */
+body[data-page="contact"]{
+  min-height: 100vh;
+  display:flex;
+  flex-direction: column;
+}
+
+body[data-page="contact"] main{
+  flex: 1;
+  display:flex;
+  align-items:center;
+  max-width: 700px;
+  margin: 0 auto;
+  padding: 6vh 6vw;
+}
+
+body[data-page="contact"] main h1{
+  font-size: clamp(2.2rem, 5vw, 3.2rem);
+  margin: 0 0 1.5rem;
+}
+
+body[data-page="contact"] main p{
+  font-size: 1.15rem;
+  margin: 0 0 2rem;
+  max-width: 46ch;
+}
+
+.contact-item{
+  display:flex;
+  align-items:baseline;
+  gap: 0.8rem;
+  margin-bottom: 0.8rem;
+}
+
+.contact-item .k{
+  font-size: 0.9rem;
+  color: #6B6353;
+  width: 90px;
+  flex-shrink: 0;
+}
+
+.contact-item a{
+  text-decoration:none;
+  color: var(--ink);
+  border-bottom: 1px solid var(--brass);
+  font-size: 1.05rem;
+}
+
+body[data-page="contact"] footer{
+  background: var(--pine);
+  color: var(--paper);
+  padding: 2rem 6vw;
+  text-align: center;
+  font-size: 0.9rem;
+  display: block;
+}
