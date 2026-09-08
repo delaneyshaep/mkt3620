@@ -2,14 +2,18 @@
  * Site navigation — include this on every page with:
  *   <script src="nav.js" defer></script>
  *
- * It builds the nav bar and injects it at the top of <body>,
- * so you don't have to copy/paste nav HTML into every page.
+ * Where to put it on the page:
+ *   - Simple pages: nav.js will automatically insert the bar at the
+ *     very top of <body> — no extra markup needed.
+ *   - Pages with a custom header layout (like the homepage): add
+ *     an empty placeholder where you want the bar to appear —
+ *       <div id="site-nav"></div>
+ *     — and nav.js will fill it in for you.
  *
- * To mark the current page as active, add a matching `data-page`
- * attribute to your <body> tag, e.g.:
+ * To highlight the current page in the nav, set a `data-page`
+ * attribute on <body>, matching one of the `page` values below:
  *   <body data-page="about">
- * If you skip this, the nav still works — it just won't highlight
- * the current page.
+ * This is optional — the nav still works without it.
  */
 
 (function () {
@@ -23,16 +27,9 @@
   function buildNav() {
     const currentPage = document.body.getAttribute("data-page");
 
-    const nav = document.createElement("header");
+    const nav = document.createElement("nav");
+    nav.id = "site-nav";
     nav.className = "site-nav";
-
-    const wordmark = document.createElement("a");
-    wordmark.className = "site-nav__wordmark";
-    wordmark.href = "index.html";
-    wordmark.textContent = "Delaney";
-
-    const list = document.createElement("nav");
-    list.className = "site-nav__links";
 
     NAV_ITEMS.forEach((item) => {
       const link = document.createElement("a");
@@ -41,12 +38,10 @@
       if (item.page === currentPage) {
         link.setAttribute("aria-current", "page");
       }
-      list.appendChild(link);
+      nav.appendChild(link);
     });
 
-    nav.appendChild(wordmark);
-    nav.appendChild(list);
-    document.body.prepend(nav);
+    return nav;
   }
 
   function injectStyles() {
@@ -54,41 +49,34 @@
     style.textContent = `
       .site-nav {
         display: flex;
-        justify-content: space-between;
+        justify-content: center;
         align-items: center;
-        padding: 1.6rem 6vw;
+        flex-wrap: wrap;
+        gap: 2.5rem;
+        padding: 1rem 1.8rem;
         font-family: 'Work Sans', sans-serif;
-        background: var(--paper, #EFE8D8);
+        background: var(--pine, #16261D);
+        border-bottom: 1px solid var(--line, #C9BFA6);
       }
 
-      .site-nav__wordmark {
-        font-family: 'Fraunces', serif;
-        font-size: 1.15rem;
-        font-weight: 600;
-        letter-spacing: 0.01em;
+      .site-nav a {
         text-decoration: none;
-        color: var(--ink, #1C1A15);
-      }
-
-      .site-nav__links {
-        display: flex;
-        gap: 2rem;
-      }
-
-      .site-nav__links a {
-        text-decoration: none;
+        color: var(--paper, #EFE8D8);
         font-size: 0.95rem;
-        color: var(--ink, #1C1A15);
         position: relative;
-        padding-bottom: 2px;
+        padding-bottom: 3px;
       }
 
-      .site-nav__links a::after {
+      .site-nav a[aria-current="page"] {
+        color: var(--brass, #C1873C);
+      }
+
+      .site-nav a::after {
         content: '';
         position: absolute;
         left: 0;
         right: 0;
-        bottom: -2px;
+        bottom: -3px;
         height: 1px;
         background: var(--brass, #C1873C);
         transform: scaleX(0);
@@ -96,29 +84,21 @@
         transition: transform 0.3s ease;
       }
 
-      .site-nav__links a:hover::after,
-      .site-nav__links a[aria-current="page"]::after {
+      .site-nav a:hover::after,
+      .site-nav a[aria-current="page"]::after {
         transform: scaleX(1);
         transform-origin: left;
       }
 
-      .site-nav__links a[aria-current="page"] {
-        color: var(--brass, #C1873C);
-      }
-
-      @media (max-width: 760px) {
+      @media (max-width: 480px) {
         .site-nav {
-          flex-direction: column;
-          gap: 1rem;
-          align-items: flex-start;
-        }
-        .site-nav__links {
-          gap: 1.2rem;
+          gap: 1.4rem;
+          padding: 0.9rem 1.2rem;
         }
       }
 
       @media (prefers-reduced-motion: reduce) {
-        .site-nav__links a::after {
+        .site-nav a::after {
           transition: none;
         }
       }
@@ -126,8 +106,17 @@
     document.head.appendChild(style);
   }
 
-  document.addEventListener("DOMContentLoaded", () => {
+  function init() {
     injectStyles();
-    buildNav();
-  });
+    const nav = buildNav();
+    const placeholder = document.getElementById("site-nav");
+
+    if (placeholder) {
+      placeholder.replaceWith(nav);
+    } else {
+      document.body.prepend(nav);
+    }
+  }
+
+  document.addEventListener("DOMContentLoaded", init);
 })();
