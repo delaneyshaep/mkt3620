@@ -6,6 +6,7 @@
 <title>Delaney</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=Work+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<script src="nav.js" defer></script>
 <style>
   :root{
     --pine: #16261D;
@@ -36,9 +37,11 @@
 
   a{ color: inherit; }
 
-  /* The whole page's "content" region, centered, matching the wireframe's inner rectangle */
+  html{ overflow-x: hidden; }
+
+  /* The whole page's "content" region: 10% background margin on each side, on any screen */
   .page{
-    max-width: 1180px;
+    width: 80%;
     margin: 4vh auto;
     background: var(--paper);
     border: 1px solid var(--line);
@@ -84,41 +87,8 @@
 
   .info-graphic svg{ width: 28px; height: 28px; }
 
-  .primary-nav{
+  #site-nav{
     grid-column: 1 / -1;
-    display:flex;
-    justify-content:center;
-    gap: 2.5rem;
-    padding: 1rem 1.8rem;
-    border-bottom: 1px solid var(--line);
-    background: var(--pine);
-  }
-
-  .primary-nav a{
-    text-decoration:none;
-    color: var(--paper);
-    font-size: 0.95rem;
-    position: relative;
-    padding-bottom: 3px;
-  }
-
-  .primary-nav a[aria-current="page"]{ color: var(--brass); }
-
-  .primary-nav a::after{
-    content:'';
-    position:absolute;
-    left:0; right:0; bottom:-3px;
-    height:1px;
-    background: var(--brass);
-    transform: scaleX(0);
-    transform-origin: right;
-    transition: transform .3s ease;
-  }
-
-  .primary-nav a:hover::after,
-  .primary-nav a[aria-current="page"]::after{
-    transform: scaleX(1);
-    transform-origin: left;
   }
 
   .utility-bar{
@@ -278,9 +248,16 @@
 
     footer{ flex-direction: column; align-items: flex-start; }
   }
+
+  @media (max-width: 480px){
+    .page{ width: 92%; }
+    .hero-image{ height: 180px; font-size: 1rem; }
+    .info-graphic{ gap: 1.4rem; }
+    .quick-facts{ gap: 1.2rem 1.6rem; }
+  }
 </style>
 </head>
-<body>
+<body data-page="home">
 
 <div class="page">
 
@@ -305,12 +282,7 @@
       </div>
     </div>
 
-    <nav class="primary-nav">
-      <a href="index.html" aria-current="page">Home</a>
-      <a href="about.html">About Me</a>
-      <a href="resume.html">Resume</a>
-      <a href="contact.html">Contact</a>
-    </nav>
+    <div id="site-nav"></div>
 
     <div class="utility-bar">Ames, Iowa · Iowa State University, Ivy College of Business</div>
   </header>
