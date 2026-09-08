@@ -6,7 +6,6 @@
 <title>Delaney</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=Work+Sans:wght@400;500;600&display=swap" rel="stylesheet">
-<script src="nav.js" defer></script>
 <style>
   :root{
     --pine: #16261D;
@@ -15,208 +14,368 @@
     --paper-dim: #E2D9C4;
     --brass: #C1873C;
     --ink: #1C1A15;
+    --line: #C9BFA6;
   }
 
   *{ box-sizing: border-box; }
 
-  html{ scroll-behavior: smooth; }
-
   body{
     margin:0;
-    background: var(--paper);
+    background: #FBF8F1; /* outer "body or background area" from the wireframe */
     color: var(--ink);
     font-family: 'Work Sans', sans-serif;
-    font-weight: 400;
     line-height: 1.6;
   }
 
-  h1, h2, .display{
+  h1, h2, h3{
     font-family: 'Fraunces', serif;
     font-weight: 500;
     letter-spacing: -0.01em;
+    margin: 0;
   }
 
   a{ color: inherit; }
 
-  /* --- Hero --- */
-  .hero{
-    background: var(--pine);
-    color: var(--paper);
-    padding: 9vh 6vw 11vh;
-    position: relative;
-    overflow: hidden;
-  }
-
-  .hero-inner{
-    max-width: 720px;
-  }
-
-  .hero .eyebrow{
-    color: var(--brass);
-    font-size: 0.95rem;
-    margin-bottom: 1.1rem;
-  }
-
-  .hero h1{
-    font-size: clamp(2.6rem, 6vw, 4.6rem);
-    line-height: 1.04;
-    margin: 0 0 1.4rem;
-  }
-
-  .hero h1 em{
-    font-style: italic;
-    color: var(--brass);
-  }
-
-  .hero p.role{
-    font-size: 1.15rem;
-    max-width: 46ch;
-    color: var(--paper-dim);
-    margin: 0;
-  }
-
-  .ledger-mark{
-    position:absolute;
-    right: 5vw;
-    bottom: -6vh;
-    font-family:'Fraunces', serif;
-    font-size: 22vw;
-    font-weight: 500;
-    color: rgba(239,232,216,0.045);
-    line-height: 1;
-    pointer-events:none;
-    user-select:none;
-  }
-
-  /* --- About --- */
-  .about{
-    padding: 11vh 6vw;
-    display:grid;
-    grid-template-columns: 1fr 1.5fr;
-    gap: 4rem;
+  /* The whole page's "content" region, centered, matching the wireframe's inner rectangle */
+  .page{
     max-width: 1180px;
-    margin: 0 auto;
+    margin: 4vh auto;
+    background: var(--paper);
+    border: 1px solid var(--line);
   }
 
-  .about .label{
-    font-size: 0.95rem;
-    color: #6B6353;
-    padding-top: 0.3rem;
+  /* ===== Header ===== */
+  .site-header{
+    display: grid;
+    grid-template-columns: 220px 1fr;
   }
 
-  .about-text{
-    max-width: 62ch;
-  }
-
-  .about-text p{
-    font-size: 1.15rem;
-    margin: 0 0 1.4rem;
-  }
-
-  .details{
-    margin-top: 2.2rem;
-    border-top: 1px solid #C9BFA6;
-    padding-top: 1.4rem;
+  .logo-cell{
     display:flex;
-    flex-wrap: wrap;
-    gap: 2.5rem 3rem;
+    align-items:center;
+    padding: 1.6rem 1.8rem;
+    border-right: 1px solid var(--line);
+    border-bottom: 1px solid var(--line);
   }
 
-  .details div{ min-width: 160px; }
-
-  .details h3{
-    font-family:'Fraunces', serif;
-    font-weight: 500;
-    font-size: 1rem;
-    margin: 0 0 0.35rem;
+  .logo-cell .wordmark{
+    font-size: 1.6rem;
+    font-weight: 600;
   }
 
-  .details p{
-    margin:0;
-    font-size: 0.95rem;
+  .info-graphic{
+    display:flex;
+    align-items:center;
+    justify-content: space-around;
+    gap: 1rem;
+    padding: 1.2rem 1.8rem;
+    border-bottom: 1px solid var(--line);
+  }
+
+  .info-graphic .item{
+    display:flex;
+    flex-direction: column;
+    align-items:center;
+    gap: 0.5rem;
+    text-align:center;
+    font-size: 0.85rem;
     color: #4E4A3D;
   }
 
-  /* --- Footer --- */
+  .info-graphic svg{ width: 28px; height: 28px; }
+
+  .primary-nav{
+    grid-column: 1 / -1;
+    display:flex;
+    justify-content:center;
+    gap: 2.5rem;
+    padding: 1rem 1.8rem;
+    border-bottom: 1px solid var(--line);
+    background: var(--pine);
+  }
+
+  .primary-nav a{
+    text-decoration:none;
+    color: var(--paper);
+    font-size: 0.95rem;
+    position: relative;
+    padding-bottom: 3px;
+  }
+
+  .primary-nav a[aria-current="page"]{ color: var(--brass); }
+
+  .primary-nav a::after{
+    content:'';
+    position:absolute;
+    left:0; right:0; bottom:-3px;
+    height:1px;
+    background: var(--brass);
+    transform: scaleX(0);
+    transform-origin: right;
+    transition: transform .3s ease;
+  }
+
+  .primary-nav a:hover::after,
+  .primary-nav a[aria-current="page"]::after{
+    transform: scaleX(1);
+    transform-origin: left;
+  }
+
+  .utility-bar{
+    grid-column: 1 / -1;
+    display:flex;
+    justify-content:center;
+    gap: 0.5rem;
+    padding: 0.55rem 1.8rem;
+    font-size: 0.85rem;
+    color: #6B6353;
+    border-bottom: 1px solid var(--line);
+  }
+
+  /* ===== Body: sidebar / main / sticky sidebar ===== */
+  .site-body{
+    display:grid;
+    grid-template-columns: 1fr 260px;
+  }
+
+  main{
+    padding: 1.8rem;
+    border-right: 1px solid var(--line);
+  }
+
+  .hero-image{
+    height: 260px;
+    border: 1px solid var(--line);
+    border-radius: 4px;
+    background:
+      linear-gradient(135deg, var(--pine) 0%, var(--pine-deep) 100%);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    color: var(--paper-dim);
+    font-family: 'Fraunces', serif;
+    font-size: 1.1rem;
+    text-align:center;
+    padding: 1rem;
+    margin-bottom: 2rem;
+  }
+
+  main h1{
+    font-size: clamp(1.7rem, 3.5vw, 2.2rem);
+    margin-bottom: 1.2rem;
+  }
+
+  main p{
+    font-size: 1.08rem;
+    margin: 0 0 1.3rem;
+  }
+
+  .quick-facts{
+    margin-top: 2.2rem;
+    border-top: 1px solid var(--line);
+    padding-top: 1.4rem;
+    display:flex;
+    flex-wrap: wrap;
+    gap: 1.8rem 2.4rem;
+  }
+
+  .quick-facts div{ min-width: 150px; }
+
+  .quick-facts h3{
+    font-size: 0.95rem;
+    margin-bottom: 0.3rem;
+  }
+
+  .quick-facts p{
+    margin:0;
+    font-size: 0.92rem;
+    color: #4E4A3D;
+  }
+
+  .sticky-sidebar{
+    padding: 1.8rem;
+  }
+
+  .sticky-sidebar section{ margin-bottom: 2.2rem; }
+
+  .sticky-sidebar h3{
+    font-size: 0.85rem;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: #6B6353;
+    margin-bottom: 0.9rem;
+  }
+
+  .sticky-sidebar ul{
+    list-style:none;
+    margin:0;
+    padding:0;
+    font-size: 0.95rem;
+  }
+
+  .sticky-sidebar li{
+    margin-bottom: 0.6rem;
+    padding-bottom: 0.6rem;
+    border-bottom: 1px solid var(--line);
+  }
+
+  .sticky-sidebar li:last-child{ border-bottom: none; }
+
+  .social-icons{
+    display:flex;
+    gap: 0.8rem;
+  }
+
+  .social-icons a{
+    width: 34px;
+    height: 34px;
+    border-radius: 50%;
+    border: 1px solid var(--line);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    text-decoration:none;
+    font-size: 0.8rem;
+    color: var(--ink);
+  }
+
+  .social-icons a:hover{
+    background: var(--brass);
+    color: var(--paper);
+    border-color: var(--brass);
+  }
+
+  /* ===== Footer ===== */
   footer{
     background: var(--pine-deep);
     color: var(--paper-dim);
-    padding: 4rem 6vw;
+    padding: 1.6rem 1.8rem;
     display:flex;
     justify-content: space-between;
-    align-items: flex-end;
+    align-items:center;
     flex-wrap: wrap;
-    gap: 2rem;
+    gap: 1rem;
+    font-size: 0.85rem;
   }
 
-  footer .line1{
-    font-family:'Fraunces', serif;
-    font-size: 1.5rem;
-    color: var(--paper);
-    margin: 0 0 0.5rem;
+  footer .footer-links{
+    display:flex;
+    gap: 1.4rem;
   }
 
-  footer a.contact-link{
-    text-decoration:none;
-    border-bottom: 1px solid var(--brass);
-    color: var(--paper);
-  }
+  footer a{ text-decoration:none; color: var(--paper-dim); }
+  footer a:hover{ color: var(--brass); }
 
-  footer small{
-    color: #8A8570;
-  }
+  /* ===== Responsive ===== */
+  @media (max-width: 900px){
+    .site-header{ grid-template-columns: 1fr; }
+    .logo-cell{ border-right:none; }
+    .info-graphic{ justify-content: flex-start; flex-wrap: wrap; }
+    .primary-nav{ flex-wrap: wrap; gap: 1.2rem; }
 
-  @media (max-width: 760px){
-    .about{ grid-template-columns: 1fr; gap: 1.2rem; }
-    header{ flex-direction: column; gap: 1rem; align-items: flex-start; }
-    nav{ gap: 1.2rem; }
-  }
+    .site-body{ grid-template-columns: 1fr; }
+    main{ border-right: none; border-bottom: 1px solid var(--line); }
 
-  @media (prefers-reduced-motion: reduce){
-    nav a::after{ transition: none; }
+    footer{ flex-direction: column; align-items: flex-start; }
   }
 </style>
 </head>
-<body data-page="home">
+<body>
 
-<section class="hero">
-  <div class="hero-inner">
-    <div class="eyebrow">Ames, Iowa</div>
-    <h1>Hi, I'm <em>Delaney.</em></h1>
-    <p class="role">Business student, retail sales professional, and builder — currently studying at Iowa State University's Ivy College of Business.</p>
-  </div>
-  <div class="ledger-mark">D.</div>
-</section>
+<div class="page">
 
-<section class="about" id="about">
-  <div class="label">About</div>
-  <div class="about-text">
-    <p>I'm Delaney, a senior at Iowa State University's Ivy College of Business, double majoring in Marketing and Entrepreneurship with a Professional Sales certificate. I work as a salesperson at Brown's Shoe Fit Co. and have spent over four years at HyVee, giving me a strong foundation in both direct sales and customer service. I'm drawn to ownership over employment, and I love figuring out how to build things from the ground up. I'm graduating in May 2027 and looking ahead to what's next.</p>
+  <!-- Header: logo, informational graphics, primary nav, utility bar -->
+  <header class="site-header">
+    <div class="logo-cell">
+      <span class="wordmark">Delaney</span>
+    </div>
 
-    <div class="details">
-      <div>
-        <h3>Education</h3>
-        <p>Ivy College of Business, Iowa State<br>Marketing &amp; Entrepreneurship, May 2027</p>
+    <div class="info-graphic">
+      <div class="item">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M3 3v18h18"/><path d="M7 15l4-5 3 3 5-7"/></svg>
+        Sales &amp; Marketing
       </div>
-      <div>
-        <h3>Currently</h3>
-        <p>Sales, Brown's Shoe Fit Co.<br>HyVee, 4+ years</p>
+      <div class="item">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M12 3l9 4.5-9 4.5-9-4.5L12 3z"/><path d="M3 12.5l9 4.5 9-4.5"/></svg>
+        Business Student
       </div>
-      <div>
-        <h3>Focus</h3>
-        <p>Direct sales, customer experience,<br>independent business building</p>
+      <div class="item">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4 3.5-7 8-7s8 3 8 7"/></svg>
+        Entrepreneurship
       </div>
     </div>
-  </div>
-</section>
 
-<footer id="contact">
-  <div>
-    <p class="line1">Let's talk.</p>
-    <a class="contact-link" href="mailto:you@example.com">you@example.com</a>
+    <nav class="primary-nav">
+      <a href="index.html" aria-current="page">Home</a>
+      <a href="about.html">About Me</a>
+      <a href="resume.html">Resume</a>
+      <a href="contact.html">Contact</a>
+    </nav>
+
+    <div class="utility-bar">Ames, Iowa · Iowa State University, Ivy College of Business</div>
+  </header>
+
+  <!-- Body: left nav sidebar, hero + main content, right sticky sidebar -->
+  <div class="site-body">
+
+    <main>
+      <!-- Swap this block for an <img src="your-photo.jpg" alt="Delaney"> when you have one -->
+      <div class="hero-image">Add your hero photo here</div>
+
+      <h1>Hi, I'm Delaney.</h1>
+      <p>I'm a senior at Iowa State University's Ivy College of Business, double majoring in Marketing and Entrepreneurship with a Professional Sales certificate. I work as a salesperson at Brown's Shoe Fit Co. and have spent over four years at HyVee, giving me a strong foundation in both direct sales and customer service. I'm drawn to ownership over employment, and I love figuring out how to build things from the ground up. I'm graduating in May 2027 and looking ahead to what's next.</p>
+
+      <div class="quick-facts">
+        <div>
+          <h3>Education</h3>
+          <p>Ivy College of Business, Iowa State<br>Marketing &amp; Entrepreneurship, May 2027</p>
+        </div>
+        <div>
+          <h3>Currently</h3>
+          <p>Sales, Brown's Shoe Fit Co.<br>HyVee, 4+ years</p>
+        </div>
+        <div>
+          <h3>Focus</h3>
+          <p>Direct sales, customer experience,<br>independent business building</p>
+        </div>
+      </div>
+    </main>
+
+    <aside class="sticky-sidebar">
+      <section>
+        <h3>Currently</h3>
+        <ul>
+          <li>Salesperson — Brown's Shoe Fit Co.</li>
+          <li>HyVee — 4+ years</li>
+          <li>Senior, Iowa State University</li>
+        </ul>
+      </section>
+
+      <section>
+        <h3>Connect</h3>
+        <div class="social-icons">
+          <a href="mailto:you@example.com" title="Email">@</a>
+          <a href="#" title="LinkedIn">in</a>
+          <a href="#" title="Instagram">ig</a>
+        </div>
+      </section>
+    </aside>
+
   </div>
-  <small>&copy; 2026 Delaney</small>
-</footer>
+
+  <!-- Footer -->
+  <footer>
+    <span>&copy; 2026 Delaney. All rights reserved.</span>
+    <div class="footer-links">
+      <a href="about.html">About</a>
+      <a href="resume.html">Resume</a>
+      <a href="contact.html">Contact</a>
+      <a href="mailto:you@example.com">you@example.com</a>
+      <a href="#">Privacy</a>
+    </div>
+  </footer>
+
+</div>
 
 </body>
 </html>
