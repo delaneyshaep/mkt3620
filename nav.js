@@ -19,7 +19,7 @@
 (function () {
   const NAV_ITEMS = [
     { label: "Home", href: "index.html", page: "home" },
-    { label: "About Me", href: "products.html", page: "about" },
+    { label: "About Me", href: "about.html", page: "about" },
     { label: "Resume", href: "resume.html", page: "resume" },
     { label: "Contact", href: "contact.html", page: "contact" },
   ];
